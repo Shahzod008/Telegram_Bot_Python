@@ -5,31 +5,18 @@ from aiogram.types import FSInputFile, CallbackQuery
 
 
 async def call(callback: CallbackQuery):
-    data = {
-        "ponidelnik": panidelnik,
-        "vtornik": vtornik,
-        "sreda": sreda,
-        "chetverg": chetverg,
-        "pjatniza": pjatniza,
-    }
-
-    if callback.data in data:
-        message = data[callback.data]
-        await callback.message.edit_text(message, reply_markup=kb_back)
-
-    data_to_range = {
-        "albebra": text1,
-        "rusish": text1,
-        "geomerish": text1,
-        "fisish": text1,
-    }
-
-    if callback.data in data_to_range:
-        args = data_to_range[callback.data]
-        foto(*args, user_id=user_id)
-
     if callback.data == "raspisanie":
         await callback.message.edit_text("Выберите день недели", reply_markup=kb_ras)
+    elif callback.data == "ponidelnik":
+        await callback.message.edit_text(text=panidelnik, reply_markup=kb_back)
+    elif callback.data == "vtornik":
+        await callback.message.edit_text(text=vtornik, reply_markup=kb_back)
+    elif callback.data == "sreda":
+        await callback.message.edit_text(text=sreda, reply_markup=kb_back)
+    elif callback.data == "chetverg":
+        await callback.message.edit_text(text=chetverg, reply_markup=kb_back)
+    elif callback.data == "pjatniza":
+        await callback.message.edit_text(text=pjatniza, reply_markup=kb_back)
     elif callback.data == "tech_support":
         await callback.message.answer_contact(phone_number="+79966636043", first_name=" ")
         await callback.message.edit_text("Можете обращаться сюда", reply_markup=kb_back)
