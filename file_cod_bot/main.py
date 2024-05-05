@@ -1,27 +1,24 @@
-import asyncio
-import logging
-import config
-from callb import call
-from keyboard import *
-from aiogram import Bot, Dispatcher
-from aiogram.filters import CommandStart
 from aiogram.types import Message, CallbackQuery
+from aiogram.filters import CommandStart
+from aiogram import Bot, Dispatcher
+from keyboard import kb_start
+from callb import handlers
+import logging
+import asyncio
 
-bot = Bot(token=config.Bot_token, parse_mode='HTML')
+bot = Bot(token="7198798391:AAEw7Inb0fW6kJ-WqMBKasyu69A3jGUiN2g", parse_mode='HTML')
 dp = Dispatcher()
 
 
 @dp.message(CommandStart())
 async def start(message: Message):
-    if message.from_user.id == config.ADMIN:
-        await message.answer(f"Привет <b>{message.from_user.first_name}</b> выбери что тебя интересует", reply_markup=kb_start)
-    else:
-        pass
+    await message.answer(f"Привет <b>{message.from_user.first_name}</b> выбери что тебя интересует",
+                         reply_markup=kb_start)
 
 
 @dp.callback_query()
 async def hand(callback: CallbackQuery):
-    await call(callback)
+    await handlers(callback)
 
 
 async def main():

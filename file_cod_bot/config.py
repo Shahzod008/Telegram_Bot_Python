@@ -1,2 +1,0 @@
-Bot_token = "6729410484:AAEC1NpEorZDc3tXFu2zhyTchtgB0ObThiQ"
-ADMIN = 5763932939 

@@ -1,43 +1,56 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-kb_start = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [InlineKeyboardButton(text="Расписание", callback_data="raspisanie")],
-        [InlineKeyboardButton(text="Главное меню", callback_data="back")],
-        [InlineKeyboardButton(text="Группа без учителя", url="https://t.me/+AJCy9bENpOIwNTZi")],
-        [InlineKeyboardButton(text="Тех. поддержка", callback_data="tech_support")]])
+buttons_1 = {
+    "Расписание": "raspisanie",
+    "Главное меню": "back",
+    "Тех. поддержка": "tech_support",
+}
 
-kb_ras = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [InlineKeyboardButton(text="Понедельник", callback_data="ponidelnik")],
-        [InlineKeyboardButton(text="Вторник", callback_data="vtornik")],
-        [InlineKeyboardButton(text="Среда", callback_data="sreda")],
-        [InlineKeyboardButton(text="Четверг", callback_data="chetverg")],
-        [InlineKeyboardButton(text="Пятница", callback_data="pjatniza")],
-        [InlineKeyboardButton(text="Назад", callback_data="back")],
-        [InlineKeyboardButton(text="В главное меню", callback_data="back")]])
+buttons_2 = {
+    "Понедельник": "panidelnik",
+    "Вторник": "vtornik",
+    "Среда": "sreda",
+    "Четверг": "chetverg",
+    "Пятница": "pjatniza",
+    "В главное меню": "back",
+}
 
-kb = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [InlineKeyboardButton(text="Расписание", callback_data="raspisanie")],
-        [InlineKeyboardButton(text="Доп. уроки", callback_data="dop_uroki")],
-        [InlineKeyboardButton(text="Теория уроков", callback_data="lesson_theory")],
-        [InlineKeyboardButton(text="Преподователи", callback_data="prepodovateli")],
-        [InlineKeyboardButton(text="История класса", callback_data="Istorija_klassa")],
-        [InlineKeyboardButton(text="Список учеников", callback_data="spisok_uchenikov")],
-        [InlineKeyboardButton(text="Задачи", callback_data="inter_zadachi")],
-        [InlineKeyboardButton(text="Группа без учителя", url="https://t.me/+AJCy9bENpOIwNTZi")],
-        [InlineKeyboardButton(text="Календарь учебного года", callback_data="kalendar")],
-        [InlineKeyboardButton(text="Тех. поддержка", callback_data="tech_support")]])
+buttons_3 = {
+    "Расписание": "raspisanie",
+    "Доп. уроки": "dop_uroki",
+    "Теория уроков": "lesson_theory",
+    "Преподователи": "prepodovateli",
+    "Список учеников": "spisok_uchenikov",
+    "Задачи": "inter_zadachi",
+    "Календарь учебного года": "kalendar",
+}
 
-kb_back = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="В главное меню", callback_data="back")]])
+buttons_4 = {
+    "Албебра": "albebra",
+    "Русиш": "rusish",
+    "Геометриш": "geomerish",
+    "Шизика": "fisish",
+    "В главное меню": "back",
+}
 
-kb_teorija_uroka = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [InlineKeyboardButton(text="Албебра", callback_data="albebra")],
-        [InlineKeyboardButton(text="Русиш", callback_data="rusish")],
-        [InlineKeyboardButton(text="Геометриш", callback_data="geomerish")],
-        [InlineKeyboardButton(text="Шизика", callback_data="fisish")],
-        [InlineKeyboardButton(text="В главное меню", callback_data="back")]
-    ]
-)
+
+kb_back = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+    text="В главное меню", callback_data="back")]])
+
+
+def add_buttons_from_dict(inline_kb, data):
+    for button_text, callback_data in data.items():
+        inline_kb.button(text=button_text, callback_data=callback_data)
+
+
+kb_start = InlineKeyboardBuilder()
+kb_ras = InlineKeyboardBuilder()
+kb = InlineKeyboardBuilder()
+kb_teorija_uroka = InlineKeyboardBuilder()
+
+
+add_buttons_from_dict(kb_start, buttons_1)
+add_buttons_from_dict(kb_ras, buttons_2)
+add_buttons_from_dict(kb, buttons_3)
+add_buttons_from_dict(kb_teorija_uroka, buttons_4)
