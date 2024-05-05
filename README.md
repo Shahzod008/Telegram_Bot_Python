@@ -14,7 +14,7 @@
 Клонируйте репозиторий и перейдите в него в командной строке:
 
 ```sh
-git https://github.com/Shahzod008/Telegram-Bot-Python.git
+git https://github.com/Shahzod008/Telegram_Bot_Python.git
 ```
 Установите зависимостей
 ```
