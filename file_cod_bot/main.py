@@ -1,29 +1,32 @@
-from aiogram.types import Message, CallbackQuery
-from aiogram.filters import CommandStart
-from aiogram import Bot, Dispatcher
-from keyboard import kb_start
-from callb import handlers
+from aiogram import types, filters, Dispatcher
+from pathlib import Path
+import keyboard
 import logging
 import asyncio
+import config
+import callb
 
-bot = Bot(token="7198798391:AAEw7Inb0fW6kJ-WqMBKasyu69A3jGUiN2g", parse_mode='HTML')
 dp = Dispatcher()
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-@dp.message(CommandStart())
-async def start(message: Message):
-    await message.answer(f"Привет <b>{message.from_user.first_name}</b> выбери что тебя интересует",
-                         reply_markup=kb_start)
+@dp.message(filters.CommandStart())
+async def start(message: types.Message):
+    file_photo = f"../source/Приветствие/Приветствие.png"
+    file = types.FSInputFile(path=file_photo)
+    await message.answer_photo(file)
+    await message.answer(text=f"Привет <b>{message.from_user.first_name}</b>. Выбери что тебя интересует",
+                         reply_markup=keyboard.kb_start.as_markup())
 
 
 @dp.callback_query()
-async def hand(callback: CallbackQuery):
-    await handlers(callback)
+async def hand(callback: types.CallbackQuery):
+    await callb.handlers(callback)
 
 
 async def main():
     logging.basicConfig(level=logging.INFO)
-    await dp.start_polling(bot)
+    await dp.start_polling(config.bot)
 
 if __name__ == "__main__":
     asyncio.run(main())
